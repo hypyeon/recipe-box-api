@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeBoxApi.Models;
 
@@ -10,9 +11,10 @@ using RecipeBoxApi.Models;
 namespace RecipeBoxApi.Migrations
 {
     [DbContext(typeof(RecipeBoxApiContext))]
-    partial class RecipeBoxApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240331085724_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
