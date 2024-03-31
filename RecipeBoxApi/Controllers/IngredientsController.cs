@@ -16,9 +16,18 @@ namespace RecipeBoxApi.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Ingredient>>> Get()
+    public async Task<ActionResult<IEnumerable<Ingredient>>> Get(string name, string recipe)
     {
-      return await _db.Ingredients.ToListAsync();
+      IQueryable<Ingredient> query = _db.Ingredients.AsQueryable();
+      if (name != null)
+      {
+        query = query.Where(e => e.Name == name);
+      }
+      if (recipe != null)
+      {
+        query = query.Where(e => e.RecipeIngredients.Any(ri => ri.Recipe.Title == recipe));
+      }
+      return await query.ToListAsync();
     }
 
     [HttpGet("{id}")]
