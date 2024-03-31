@@ -39,5 +39,48 @@ namespace RecipeBoxApi.Controllers
       await _db.SaveChangesAsync();
       return CreatedAtAction(nameof(GetRecipe), new { id = recipe.RecipeId }, recipe);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Recipe recipe)
+    {
+      if (id != recipe.RecipeId)
+      {
+        return BadRequest();
+      }
+      _db.Recipes.Update(recipe);
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!RecipeExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return NoContent();
+    }
+    private bool RecipeExists(int id)
+    {
+      return _db.Recipes.Any(e => e.RecipeId == id);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteRecipe(int id)
+    {
+      Recipe recipe = await _db.Recipes.FindAsync(id);
+      if (recipe == null)
+      {
+        return NotFound();
+      }
+      _db.Recipes.Remove(recipe);
+      await _db.SaveChangesAsync();
+      return NoContent();
+    }
   }
 }
