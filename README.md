@@ -88,30 +88,35 @@ appsettings.*.json
 This API can be tested with an API platform. *Author used [Postman](https://www.postman.com/) for development.*
 
 ### Available Endpoints
-*below are examples, will be updated*
 ```
-GET http://localhost:5000/api/v1/dogs/
-GET http://localhost:5000/api/v1/dogs/{id}
-POST http://localhost:5000/api/v1/dogs/
-PUT http://localhost:5000/api/v1/dogs/{id}
-DELETE http://localhost:5000/api/v1/dogs/{id}
+GET http://localhost:5000/api/recipes/
+GET http://localhost:5000/api/recipes/{id}
+POST http://localhost:5000/api/recipes/
+POST http://localhost:5000/api/recipes/{recipeId}/AddIngredient
+PUT http://localhost:5000/api/recipes/{id}
+DELETE http://localhost:5000/api/recipes/{id}
+DELETE http://localhost:5000/api/recipes/DeleteJoin/{recipeId}/{ingredientId}
 ```
-`{id}` is a variable that should be replaced with the id number of the animal you want to `GET`, `PUT`, or `DELETE`. 
+`{id}` is a variable that should be replaced with the id number of the recipe you want to `GET`, `PUT`, or `DELETE`. 
 
 #### Optional Query String Parameters for GET Request
-*below are examples, will be updated*
-GET requests to `http://localhost:5000/api/v1/dogs/` can optionally include query strings to filter or search dogs.
-> The following query will return all dogs with a sex value of **Female**. 
+*below are examples, will be updated*    
+GET requests to `http://localhost:5000/api/recipes/` can optionally include query strings to filter or search recipes.
+> The following query will return all recipes belong to **Main Course** category. 
 ```
-GET http://localhost:5000/api/v1/dogs?sex=female
+GET http://localhost:5000/api/recipes?catId=1
 ```
-> The following query will return all dogs with a neuteredSpayed value of **true**.
+> The following query will return recipe with **Spaghetti Bolognese** title.
 ```
-GET http://localhost:5000/api/v1/dogs?neuteredSpayed=true
+GET http://localhost:5000/api/recipes?title=Spaghetti Bolognese
+```
+> The following query will return all recipes that have **Chicken breasts** as one of ingredients. 
+```
+GET http://localhost:5000/api/recipes?ing=Chicken breasts
 ```
 
 #### Additional Requirements for POST Request
-*below are examples, will be updated*
+*below are examples, will be updated*    
 When making a POST request to `http://localhost:5000/api/v1/dogs/`, you need to include a **body**. Here's an example body in JSON:
 ```
 {
@@ -141,7 +146,7 @@ http://localhost:5000/api/v1/dogs/3
 The value of `dogId` needs to match the id number in the URL. (In this example, they are both `3`.)
 
 ## Known Bugs
-*currently under development as of March 29, 2024*
+*currently under development as of March 31, 2024*
 
 ## License
 [MIT](/LICENSE.txt) | Copyright © 2024 Hayeong Pyeon
