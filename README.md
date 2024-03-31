@@ -23,9 +23,10 @@ by Hayeong Pyeon
 - This API is created for users to manage recipes of food and drinks.
 - Users should be able to: 
 > - [ ] Have access to full CRUD functionality to each recipe, that includes ingredients and instructions. 
-> - [ ] View recipes by category, which can also be updated or deleted.
-> - [ ] Add 'Favorite' tags to recipes that they'd like to save in their Favorite list. 
+> - [ ] Have access to full CRUD functionality to each ingredient.
+> - [ ] View recipes by category.
 > - [ ] View a list of recipes that include their choice of ingredient.
+> - [ ] Add 'Favorite' tags to recipes that users would like to save in their Favorite list. 
 
 > [!NOTE]
 > Frontend MVC application that consumes this API will be built and uploaded here upon completion of development.
