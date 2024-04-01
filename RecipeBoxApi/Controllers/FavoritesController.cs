@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipeBoxApi.Models;
@@ -18,7 +19,11 @@ namespace RecipeBoxApi.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Favorite>>> Get()
     {
-      return await _db.Favorites.ToListAsync();
+      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      var favorites = await _db.Favorites
+        .Where(f => f.UserId == userId)
+        .ToListAsync();
+      return Ok(favorites);
     }
 
     [HttpGet("{id}")]

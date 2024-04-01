@@ -6,5 +6,6 @@ namespace RecipeBoxApi.Models
     public Recipe Recipe { get; set; }
     public int IngredientId { get; set; }
     public Ingredient Ingredient { get; set; }
+    public int RecipeIngredientId { get; set; }
   }
 }

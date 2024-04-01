@@ -6,7 +6,6 @@ namespace RecipeBoxApi.Models
   {
     public int RecipeId { get; set; }
     [Required]
-    [StringLength(30)]
     public string Title { get; set; }
     [Required]
     public string Instruction { get; set; }
