@@ -41,6 +41,7 @@ namespace RecipeBoxApi.Controllers
       Recipe recipe = await _db.Recipes
         .Include(ri => ri.RecipeIngredients)
         .ThenInclude(join => join.Ingredient)
+        .Include(r => r.Category)
         .FirstOrDefaultAsync(ri => ri.RecipeId == id);
       if (recipe == null)
       {
