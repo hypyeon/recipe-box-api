@@ -37,7 +37,7 @@ namespace RecipeBoxApi.Controllers
       return fav;
     }
 
-    [HttpPost]
+    [HttpPost("AddFavorite/{recipeId}")]
     public async Task<ActionResult<Favorite>> AddFavorite(int recipeId, string userId)
     {
       Recipe recipe = await _db.Recipes.FindAsync(recipeId);

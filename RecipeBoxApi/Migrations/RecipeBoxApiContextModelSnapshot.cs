@@ -390,18 +390,21 @@ namespace RecipeBoxApi.Migrations
 
             modelBuilder.Entity("RecipeBoxApi.Models.RecipeIngredient", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("RecipeIngredientId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RecipeIngredientId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.HasKey("RecipeId", "IngredientId");
+                    b.HasKey("RecipeIngredientId");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeIngredients");
                 });

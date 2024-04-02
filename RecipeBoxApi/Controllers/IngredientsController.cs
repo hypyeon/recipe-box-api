@@ -33,7 +33,10 @@ namespace RecipeBoxApi.Controllers
     [HttpGet("{id}")]
     public async Task<ActionResult<Ingredient>> GetIngredients(int id)
     {
-      Ingredient ing = await _db.Ingredients.FindAsync(id);
+      Ingredient ing = await _db.Ingredients
+        .Include(ri => ri.RecipeIngredients)
+        .ThenInclude(join => join.Recipe)
+        .FirstOrDefaultAsync(ri => ri.IngredientId == id);
       if (ing == null)
       {
         return NotFound();

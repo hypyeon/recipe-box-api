@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipeBoxApi.Models;
+using System.Linq;
 
 namespace RecipeBoxApi.Controllers
 {
@@ -37,7 +38,10 @@ namespace RecipeBoxApi.Controllers
     [HttpGet("{id}")]
     public async Task<ActionResult<Recipe>> GetRecipe(int id)
     {
-      Recipe recipe = await _db.Recipes.FindAsync(id);
+      Recipe recipe = await _db.Recipes
+        .Include(ri => ri.RecipeIngredients)
+        .ThenInclude(join => join.Ingredient)
+        .FirstOrDefaultAsync(ri => ri.RecipeId == id);
       if (recipe == null)
       {
         return NotFound();
@@ -96,19 +100,19 @@ namespace RecipeBoxApi.Controllers
       return NoContent();
     }
 
-    [HttpPost("AddIngredient")]
-    public async Task<IActionResult> AddIngredient(Recipe recipe, int ingredientId)
+    [HttpPost("{recipeId}/AddIngredient")]
+    public async Task<IActionResult> AddIngredient(int recipeId, int ingredientId)
     {
       #nullable enable
       RecipeIngredient? join = await _db.RecipeIngredients
-        .FirstOrDefaultAsync(ri => ri.IngredientId == ingredientId && ri.RecipeId == recipe.RecipeId );
+        .FirstOrDefaultAsync(ri => ri.IngredientId == ingredientId && ri.RecipeId == recipeId );
       #nullable disable
 
       if (join == null && ingredientId != 0)
       {
         _db.RecipeIngredients.Add(new RecipeIngredient ()
         {
-          IngredientId = ingredientId, RecipeId = recipe.RecipeId
+          IngredientId = ingredientId, RecipeId = recipeId
         });
         await _db.SaveChangesAsync();
       }

@@ -4,6 +4,10 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers().AddJsonOptions(opt => {
+    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
+
 // Add services to the container.
 
 builder.Services.AddDbContext<RecipeBoxApiContext>(
@@ -15,6 +19,7 @@ builder.Services.AddDbContext<RecipeBoxApiContext>(
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

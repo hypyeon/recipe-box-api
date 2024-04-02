@@ -11,8 +11,8 @@ using RecipeBoxApi.Models;
 namespace RecipeBoxApi.Migrations
 {
     [DbContext(typeof(RecipeBoxApiContext))]
-    [Migration("20240331085724_SeedData")]
-    partial class SeedData
+    [Migration("20240401233545_AddEverything")]
+    partial class AddEverything
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,6 +135,7 @@ namespace RecipeBoxApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("IngredientId");
@@ -254,9 +255,11 @@ namespace RecipeBoxApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Instruction")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("RecipeId");
@@ -389,15 +392,21 @@ namespace RecipeBoxApi.Migrations
 
             modelBuilder.Entity("RecipeBoxApi.Models.RecipeIngredient", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("RecipeIngredientId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.HasKey("RecipeId", "IngredientId");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeIngredientId");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeIngredients");
                 });
